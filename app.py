@@ -11,25 +11,25 @@ model = joblib.load('ltv_model.pkl')
 training_columns = joblib.load('training_columns.pkl')
 
 @app.route('/predict', methods=['POST'])
+# Make sure this function has the correct indentation
+@app.route('/predict', methods=['POST'])
 def predict():
-    # Get the JSON data
+    # This line should have 4 spaces before it
     data = request.get_json()
     
-    # Convert incoming json to a pandas DataFrame
+    # This line should have 4 spaces before it
     features_df = pd.DataFrame(data, index=[0])
     
-    # One-hot encode the categorical features
+    # This line should have 4 spaces before it
     features_df = pd.get_dummies(features_df)
     
-    # Reindex the dataframe to match the training columns
-    # This adds any missing columns (and fills with 0) and ensures the order is correct
+    # This line should have 4 spaces before it
     features_df = features_df.reindex(columns=training_columns, fill_value=0)
     
-    # Make a prediction
+    # This line should have 4 spaces before it
     prediction = model.predict(features_df)
     
-    # Return the prediction
-    return jsonify({'predicted_ltv': prediction[0]})
-
+    # This line should have 4 spaces before it
+    return jsonify({'predicted_ltv': float(prediction[0])})
 if __name__ == '__main__':
     app.run(debug=True)
